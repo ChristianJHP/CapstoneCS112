@@ -1,6 +1,6 @@
-package com.cpjc_cs112_miracosta.edu.capstonecs112.View;
+package com.cpjc_cs112_miracosta.edu.capstonecs112.view;
 
-import com.cpjc_cs112_miracosta.edu.capstonecs112.Controller.Controller;
+import com.cpjc_cs112_miracosta.edu.capstonecs112.controller.Controller;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import com.cpjc_cs112_miracosta.edu.capstonecs112.Model.Blacksmith;
+import com.cpjc_cs112_miracosta.edu.capstonecs112.model.Blacksmith;
 
 public class MainScene extends Scene {
     public static final int WIDTH = 700;
@@ -99,7 +99,6 @@ public class MainScene extends Scene {
         // String name = nameTF.getText(), price = (), notes = notesTF.getText();
         // if (name.isEmpty())
             nameErrLabel.setVisible(true);
-
         //double prizeAmount = Double.parseDouble(prizeAmountTF.getText());
         // blacksmithsList.add(0, new Blacksmith(name, price, notes));
         // tell listview to update, since we have new laureate object

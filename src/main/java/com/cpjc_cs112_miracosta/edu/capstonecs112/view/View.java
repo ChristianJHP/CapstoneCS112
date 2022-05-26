@@ -1,11 +1,10 @@
-package com.cpjc_cs112_miracosta.edu.capstonecs112.View;
+package com.cpjc_cs112_miracosta.edu.capstonecs112.view;
 
-import com.cpjc_cs112_miracosta.edu.capstonecs112.Controller.Controller;
+import com.cpjc_cs112_miracosta.edu.capstonecs112.controller.Controller;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.stage.Stage;
+
 
 
     public class View extends Application {
@@ -26,6 +25,5 @@ import javafx.stage.Stage;
 
         public static void main(String[] args) {
             Application.launch(args);
-
         }
     }

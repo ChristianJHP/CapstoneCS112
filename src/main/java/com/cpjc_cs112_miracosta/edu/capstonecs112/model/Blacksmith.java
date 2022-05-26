@@ -1,4 +1,4 @@
-package com.cpjc_cs112_miracosta.edu.capstonecs112.Model;
+package com.cpjc_cs112_miracosta.edu.capstonecs112.model;
 
 import java.io.Serializable;
 import java.text.NumberFormat;

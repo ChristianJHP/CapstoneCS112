@@ -1,15 +1,12 @@
-package com.cpjc_cs112_miracosta.edu.capstonecs112.Model;
-
-import com.cpjc_cs112_miracosta.edu.capstonecs112.Model.Blacksmith;
-import com.cpjc_cs112_miracosta.edu.capstonecs112.Model.Soshin;
+package com.cpjc_cs112_miracosta.edu.capstonecs112.model;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Ohkazan extends Blacksmith implements Serializable{
+public class Ueda extends Blacksmith implements Serializable{
     private String mNotes;
 
-    public Ohkazan(String model, int price, String notes) {
+    public Ueda(String model, int price, String notes) {
         super(model, price);
         mNotes = notes;
     }
@@ -27,8 +24,8 @@ public class Ohkazan extends Blacksmith implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Soshin ohkazan = (Soshin) o;
-        return Objects.equals(mNotes, ohkazan.getNotes());
+        Ueda ohkazan = (Ueda) o;
+        return Objects.equals(mNotes, ohkazan.mNotes);
     }
 
     @Override

@@ -1,12 +1,12 @@
-package com.cpjc_cs112_miracosta.edu.capstonecs112.Model;
+package com.cpjc_cs112_miracosta.edu.capstonecs112.model;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Soshin extends Blacksmith implements Serializable{
+public class Ohkazan extends Blacksmith implements Serializable{
     private String mNotes;
 
-    public Soshin(String model, int price, String notes) {
+    public Ohkazan(String model, int price, String notes) {
         super(model, price);
         mNotes = notes;
     }
@@ -25,7 +25,7 @@ public class Soshin extends Blacksmith implements Serializable{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Soshin ohkazan = (Soshin) o;
-        return Objects.equals(mNotes, ohkazan.mNotes);
+        return Objects.equals(mNotes, ohkazan.getNotes());
     }
 
     @Override

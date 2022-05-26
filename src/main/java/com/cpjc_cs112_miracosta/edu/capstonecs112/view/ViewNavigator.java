@@ -1,4 +1,4 @@
-package com.cpjc_cs112_miracosta.edu.capstonecs112.View;
+package com.cpjc_cs112_miracosta.edu.capstonecs112.view;
 
 
 import javafx.scene.Scene;
