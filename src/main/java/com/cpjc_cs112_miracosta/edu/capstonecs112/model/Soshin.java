@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Soshin extends Blacksmith implements Serializable{
     private String mNotes;
 
-    public Soshin(String model, int price, String notes) {
+    public Soshin(String model, double price, String notes) {
         super(model, price);
         mNotes = notes;
     }
@@ -35,10 +35,10 @@ public class Soshin extends Blacksmith implements Serializable{
 
     @Override
     public String toString() {
-        return "Model.Ohkazan{" +
-                "mModel='" + mModel + '\'' +
-                ", mPrice=" + currency.format(mPrice) +
-                ", mNotes='" + mNotes + '\'' +
+        return "Soshin{" +
+                "Model='" + mModel + '\'' +
+                ", Price=" + currency.format(mPrice) +
+                ", Notes='" + mNotes + '\'' +
                 '}';
     }
 }

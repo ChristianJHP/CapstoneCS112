@@ -9,7 +9,7 @@ public abstract class Blacksmith implements Serializable, Comparable<Blacksmith>
     protected static NumberFormat currency = NumberFormat.getCurrencyInstance();
     protected static NumberFormat number = NumberFormat.getCurrencyInstance();
     protected String mModel;
-    protected int mPrice;
+    protected double mPrice;
 
     @Override
     public int compareTo(Blacksmith other) {
@@ -18,13 +18,13 @@ public abstract class Blacksmith implements Serializable, Comparable<Blacksmith>
         int modelComp = this.mModel.compareTo(other.mModel);
         if (modelComp != 0) return modelComp;
 
-        int priceComp = Integer.compare(this.mPrice, other.mPrice);
+        int priceComp = Double.compare(this.mPrice, other.mPrice);
         if (priceComp != 0) return priceComp;
 
         return 0;
     }
 
-    public Blacksmith(String model, int price) {
+    public Blacksmith(String model, double price) {
         mModel = model;
         mPrice = price;
     }
@@ -37,7 +37,7 @@ public abstract class Blacksmith implements Serializable, Comparable<Blacksmith>
         mModel = model;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return mPrice;
     }
 

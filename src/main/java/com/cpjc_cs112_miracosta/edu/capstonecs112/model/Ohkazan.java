@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Ohkazan extends Blacksmith implements Serializable{
     private String mNotes;
 
-    public Ohkazan(String model, int price, String notes) {
+    public Ohkazan(String model, double price, String notes) {
         super(model, price);
         mNotes = notes;
     }
@@ -35,10 +35,10 @@ public class Ohkazan extends Blacksmith implements Serializable{
 
     @Override
     public String toString() {
-        return "Model.Ohkazan{" +
-                "mModel='" + mModel + '\'' +
-                ", mPrice=" + currency.format(mPrice) +
-                ", mNotes='" + mNotes + '\'' +
+        return "Ohkazan{" +
+                "Model='" + mModel + '\'' +
+                ", Price=" + currency.format(mPrice) +
+                ", Notes='" + mNotes + '\'' +
                 '}';
     }
 }

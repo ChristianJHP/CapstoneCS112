@@ -1,6 +1,8 @@
 package com.cpjc_cs112_miracosta.edu.capstonecs112.view;
 
 import com.cpjc_cs112_miracosta.edu.capstonecs112.controller.Controller;
+import com.cpjc_cs112_miracosta.edu.capstonecs112.model.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import com.cpjc_cs112_miracosta.edu.capstonecs112.model.Blacksmith;
 
 public class MainScene extends Scene {
     public static final int WIDTH = 700;
@@ -17,11 +18,12 @@ public class MainScene extends Scene {
 
     private ImageView blacksmithIV = new ImageView();
     private ComboBox<String> blacksmithNameCB = new ComboBox<>();
-    private TextField nameTF = new TextField();
-    private Label nameLabel = new Label("Blacksmith's Name:");
-    private Label nameErrLabel = new Label("Name is required.");
 
     private TextField priceAmountTF = new TextField();
+    private Label priceErrLabel = new Label("Price is required.");
+
+    private TextField knifeModelTF = new TextField();
+    private Label knifeModelErrLabel = new Label("Model is required.");
 
     private TextField notesTF = new TextField();
 
@@ -32,7 +34,7 @@ public class MainScene extends Scene {
 
     private Controller controller = Controller.getInstance();
     private ObservableList<Blacksmith> blacksmithsList;
-    private Blacksmith selectedLaureate;
+    private Blacksmith selectedSmith;
 
     public MainScene() {
         super(new GridPane(), WIDTH, HEIGHT);
@@ -45,6 +47,7 @@ public class MainScene extends Scene {
         // DONE: Uncomment after configuring res folder
         blacksmithIV.setImage(new Image("CutCheese.png"));
         blacksmithIV.setFitWidth(WIDTH);
+        blacksmithIV.setFitHeight(400);
         pane.add(blacksmithIV, 0, 0, 3, 1);
 
         pane.add(new Label("Blacksmith:"), 0, 1);
@@ -54,15 +57,18 @@ public class MainScene extends Scene {
         // 2 Combobox:
         // 1) SelectedIndex
         // 2) SelectedItem
-        blacksmithNameCB.getItems().addAll("Ueda", "Ohkazan", "Soshin", "Issei Shin", "Kanmera");
+        blacksmithNameCB.getItems().addAll("Ueda", "Ohkazan", "Soshin", "Issei Shin");
+        blacksmithsLV.getSelectionModel().selectedItemProperty().addListener((obsVal, oldVal, newVal) ->selectSmith(newVal));
         // Select individual by default
         blacksmithNameCB.getSelectionModel().select("Ueda");
 
-        pane.add(nameLabel, 0, 2);
-        pane.add(nameTF, 1, 2);
-        pane.add(nameErrLabel, 2, 2);
+        /*pane.add(nameTF, 0, 2);
+        pane.add(nameErrLabel, 0, 2);
         nameErrLabel.setTextFill(Color.RED);
-        nameErrLabel.setVisible(false);
+        nameErrLabel.setVisible(false); */
+
+        pane.add(new Label("Knife Model:"), 0, 2);
+        pane.add(knifeModelTF, 1, 2);
 
         pane.add(new Label("Price $:"), 0, 4);
         pane.add(priceAmountTF, 1, 4);
@@ -71,7 +77,6 @@ public class MainScene extends Scene {
         pane.add(notesTF, 1, 6);
 
         // Wire up add button to addSmith method
-        addButton.setOnAction(e -> addSmith());
 
         pane.add(addButton, 1, 7);
         blacksmithsLV.setPrefWidth(WIDTH);
@@ -82,32 +87,90 @@ public class MainScene extends Scene {
         blacksmithsList = controller.getAllBlacksmiths();
         blacksmithsLV.setItems(blacksmithsList);
 
+        if (selectedSmith == null)
+            removeButton.setDisable(true);
         removeButton.setDisable(true);
+        addButton.setOnAction(e -> addSmith());
+        removeButton.setOnAction(e -> removeSmith());
 
         this.setRoot(pane);
     }
 
     private void removeSmith() {
-        // blacksmithsList.remove(selectedBlacksmith);
+        //TODO:	If the selected job is null, return
+        if (selectedSmith == null)
+            return;
+        //TODO: Otherwise, remove the selected job from the list
+        blacksmithsList.remove(selectedSmith);
+        //TODO:	Update the display when done.
         blacksmithsLV.refresh();
         blacksmithsLV.getSelectionModel().select(-1);
+        updateDisplay();
 
     }
 
-    private void addSmith() {
-        // Read from all the textfields
-        // String name = nameTF.getText(), price = (), notes = notesTF.getText();
-        // if (name.isEmpty())
-            nameErrLabel.setVisible(true);
-        //double prizeAmount = Double.parseDouble(prizeAmountTF.getText());
-        // blacksmithsList.add(0, new Blacksmith(name, price, notes));
-        // tell listview to update, since we have new laureate object
-        blacksmithsLV.refresh();
+    private void selectSmith(Blacksmith newVal) {
+        selectedSmith = newVal;
+        removeButton.setDisable(selectedSmith == null);
     }
+
+
+  private void addSmith() {
+
+        String knifeModel, notes;
+        double price = 0.0;
+
+        knifeModel = knifeModelTF.getText();
+        knifeModelErrLabel.setVisible(knifeModel.isEmpty());
+
+        try {
+            price = Double.parseDouble(priceAmountTF.getText());
+            priceErrLabel.setVisible(price < 0.0);
+        } catch (NumberFormatException e) {
+            priceErrLabel.setVisible(true);
+        }
+
+        notes = notesTF.getText();
+        String choice = blacksmithNameCB.getValue();
+      System.out.println(blacksmithNameCB.getValue());
+
+        switch(choice){
+            case "Udea":
+                blacksmithsList.add(0, new Ueda(knifeModel, price, notes));
+                break;
+            case "Issei Shin":
+                blacksmithsList.add(0, new IsseiShin(knifeModel, price, notes));
+                break;
+            case "Ohkazan":
+                blacksmithsList.add(0, new Ohkazan(knifeModel, price, notes));
+                break;
+            case "Soshin":
+                blacksmithsList.add(0, new Soshin(knifeModel, price, notes));
+                break;
+        }
+        updateDisplay();
+      blacksmithsList.add(0, new Ueda("UD-BU165", 174, "last available"));
+      blacksmithsList.add(0, new IsseiShin("IS-OR160", 154, "n/a"));
+      blacksmithsList.add(0, new Soshin("SS-OR210", 189, "demo"));
+      blacksmithsList.add(0, new Ohkazan("OK-BU165", 189, "demo"));
+
+        clearInputs();
+    }
+
 
     private void updateDisplay()
     {
+        FXCollections.sort(blacksmithsList);
         blacksmithsLV.refresh();
+    }
+
+    private void clearInputs()
+    {
+        blacksmithNameCB.getSelectionModel().select("Ueda");
+        priceAmountTF.setText("");
+        knifeModelTF.setText("");
+        notesTF.setText("");
+
     }
 
 }

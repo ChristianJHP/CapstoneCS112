@@ -17,7 +17,8 @@ public class Controller {
         //TODO: If the instance is null, assign it to a new Controller, then check to see if the binary file has data
         if (theInstance == null)
             theInstance = new Controller();
-        theInstance.mAllBlacksmiths = Model.populateListFromBinaryFile();
+        if (Model.binaryFileHasData())
+            theInstance.mAllBlacksmiths = Model.populateListFromBinaryFile();
         //TODO: If so, assign the mAllJobsList to the populateListFromBinaryFile() method
         //TODO: Otherwise, assign it to a new observableArrayList()
         return theInstance;
